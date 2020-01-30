@@ -20,7 +20,7 @@ class Song
     end
 
     def self.all
-        @@all.uniq
+        @@all
     end
 
     def self.count
@@ -36,6 +36,12 @@ class Song
     end
 
     def self.genre_count
+        # once tally is enabled to core
+        # temp_genres = []
+        # @@all.each do |songs|
+        #     temp_genres << songs.genre
+        # end
+        # temp_genres.tally
         Hash[*@@genres.group_by{ |v| v }.flat_map{ |k, v| [k, v.size] }]
     end
 
