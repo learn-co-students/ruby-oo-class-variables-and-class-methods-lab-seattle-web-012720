@@ -1,62 +1,78 @@
-require 'pry'
 
 class Song
 
   attr_accessor :name, :artist, :genre
 
+  @@all = []
   @@count = 0
-  @@artists = []
+  @@artist = []
   @@genres = []
+  puts @@genres
 
   def initialize(name, artist, genre)
     @name = name
     @artist = artist
-    @genre = genre 
-    @@count += 1
-    @@artists << artist
-    @@genres << genre 
+    @genre = genre
+    @@all << self
+    @@count +=1
+    @@artist << artist
+    @@genres << genre
+  end
+
+  def self.genre_count
+    genre_count = {}
+    @@genres.each do |genre|
+      if genre_count[genre]
+        genre_count[genre] += 1
+      else
+        genre_count[genre] = 1
+      end
+    end
+    genre_count
+  end
+  
+  def self.artists_count
+    artists_count = {}
+    @@artist.each do |artist|
+      if artists_count[artist]
+        artists_count[artist] += 1
+      else
+        artists_count[artist] = 1
+      end
+    end
+    artists_count
   end
 
   def self.count
-     @@count
+    @@count
   end
 
   def self.artists
-    @@artists.uniq 
+    @@artist.uniq
   end
 
   def self.genres
     @@genres.uniq
   end
 
-  def self.genre_count
-    # returns a hash of genres and the number of songs that have those genres
-    genre_count = {}
-    @@genres.each do |genero|
-      if genre_count[genero]
-        genre_count[genero] +=1
-      else
-        genre_count[genero] = 1
-      end
-    end
-    genre_count
+  def self.all
+    @@all
   end
-
-  def self.artist_count
-    artists = {}
-    @@artists.each do |songs|
-      if artists[songs]
-        artists[songs] +=1
-      else
-        artists[songs] = 1
-      end
-    end
-    artists
-  end
-  
-    
-  
-
-
-
 end
+
+first_song = Song.new("song1", "artist1", "genre1")
+
+second_song = Song.new("song2", "artist2", "genre2")
+
+third_song = Song.new("song3", "artist3", "genre2")
+
+fourth_song = Song.new("song4", "artist4", "genre2")
+
+sixth_song = Song.new("song5", "artist5", "genre5")
+
+
+puts Song.artists
+puts Song.count
+puts "I have these types of genres in my Songs #{Song.genres}"
+puts Song.genre_count
+puts Song.artists_count
